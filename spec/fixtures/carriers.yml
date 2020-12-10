@@ -1,4 +1,4 @@
 fedex:
   id: 1
-  status: 'CREATED'
-  tracking_number: '12345'
+  status: 'UNKNOWED'
+  track_id: '111111'
