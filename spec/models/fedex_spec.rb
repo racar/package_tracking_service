@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Fedex, type: :model do
   let(:add_package) do
-    described_class.create(status: 'CREATED',
-                           tracking_number: '12345')
+    described_class.new(status: 'CREATED',
+                        tracking_number: '12345').save
+
   end
 
   before do
@@ -12,5 +13,8 @@ RSpec.describe Fedex, type: :model do
 
   subject { Carrier.find_by(track_id: '12345') }
 
-  it { is_expected.not_to be_nil }
+  it do
+    is_expected.not_to be_nil
+    expect(subject.type).to eq 'Fedex'
+  end
 end
