@@ -1,0 +1,4 @@
+fedex:
+  id: 1
+  status: 'CREATED'
+  tracking_number: '12345'
