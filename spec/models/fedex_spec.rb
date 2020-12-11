@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Fedex, type: :model do
+RSpec.describe FedexService, type: :model do
   let(:add_package) do
     described_class.new(status: 'CREATED',
                         tracking_number: '12345').save
@@ -15,6 +15,6 @@ RSpec.describe Fedex, type: :model do
 
   it do
     is_expected.not_to be_nil
-    expect(subject.type).to eq 'Fedex'
+    expect(subject.type).to eq 'FedexService'
   end
 end

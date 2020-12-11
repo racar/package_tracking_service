@@ -2,4 +2,4 @@ fedex:
   id: 1
   status: 'UNKNOWED'
   track_id: '111111'
-  type: 'Fedex'
+  type: 'FedexService'
