@@ -4,7 +4,6 @@ RSpec.describe FedexService, type: :model do
   let(:add_package) do
     described_class.new(status: 'CREATED',
                         tracking_number: '12345').save
-
   end
 
   before do
