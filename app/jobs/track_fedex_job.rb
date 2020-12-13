@@ -2,7 +2,10 @@ class TrackFedexJob < TrackJob
   def perform(*args)
     super(*args)
 
-    update_status unless same_status?
+    return if same_status?
+
+    update_status
+    publish_event
   end
 
   private
@@ -23,12 +26,24 @@ class TrackFedexJob < TrackJob
     package_to_track.status == tracking_info.status
   end
 
-  def update_status
-    package_to_track.status = status_normalization
-    package_to_track.save
-  end
-
   def status_normalization
     tracking_info.details[:status].upcase
+  end
+
+  def publish_event
+    binding.pry
+    UpdateStatusEvent.new.publish(payload.to_json)
+  end
+
+  def payload
+    {
+      track_id: tracking_info.details[:details][:tracking_number_unique_identifier],
+      status: status_normalization,
+      description: tracking_info.details[:details][:status_description],
+      status_code: tracking_info.details[:details][:status_code],
+      carrier_code: tracking_info.details[:details][:carrier_code],
+      packaging_type: tracking_info.details[:details][:packaging_type],
+      dimensions: tracking_info.details[:details][:package_dimensions]
+    }
   end
 end
