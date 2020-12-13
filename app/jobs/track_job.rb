@@ -15,4 +15,13 @@ class TrackJob < ApplicationJob
   def request
     raise NotImplementedError
   end
+
+  def status_normalization
+    raise NotImplementedError
+  end
+
+  def update_status
+    package_to_track.status = status_normalization
+    package_to_track.save
+  end
 end
