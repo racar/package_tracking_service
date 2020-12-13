@@ -31,7 +31,6 @@ class TrackFedexJob < TrackJob
   end
 
   def publish_event
-    binding.pry
     UpdateStatusEvent.new.publish(payload.to_json)
   end
 
