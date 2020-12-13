@@ -7,3 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 FedexService.create(status: 'UNKNOWED', track_id: '111111')
+FedexService.create(status: 'UNKNOWED', track_id: '449044304137821')
+FedexService.create(status: 'UNKNOWED', track_id: '149331877648230')
+FedexService.create(status: 'UNKNOWED', track_id: '020207021381215')
+FedexService.create(status: 'UNKNOWED', track_id: '403934084723025')
