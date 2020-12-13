@@ -1,5 +1,8 @@
 class TrackFedexJob < TrackJob
   retry_on Timeout::Error, wait: 30.seconds, attempts: 3
+
+  ON_TRANSIT_STATUSES = ['AT PICKUP', 'ARRIVED AT FEDEX LOCATION','SHIPMENT INFORMATION SENT TO FEDEX'].freeze
+
   def perform(*args)
     super(*args)
 
@@ -28,6 +31,8 @@ class TrackFedexJob < TrackJob
   end
 
   def status_normalization
+    return 'ON_TRANSIT' if ON_TRANSIT_STATUSES.include? tracking_info.status.upcase
+
     tracking_info.status.upcase
   end
 
