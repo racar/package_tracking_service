@@ -6,12 +6,9 @@ RSpec.describe TrackFedexJob, type: :job do
     let(:package) { FedexService.find_by(tracking_number: '111111') }
     subject { package.status }
 
-    let(:tracking_info) do
-      [Fedex::TrackingInformation.new(status_code: 'DL', status: 'Delivered', details: details)]
-    end
-
     before do
-      allow_any_instance_of(Fedex::Shipment).to receive(:track).and_return(tracking_info)
+      tracking_info = instance_double("TrackingInformation", :status => 'Delivered', :details => details)
+      allow_any_instance_of(Fedex::Shipment).to receive(:track).and_return([tracking_info])
     end
 
     before do

@@ -27,7 +27,7 @@ class TrackFedexJob < TrackJob
   end
 
   def status_normalization
-    tracking_info.details[:status].upcase
+    tracking_info.status.upcase
   end
 
   def publish_event
@@ -36,13 +36,13 @@ class TrackFedexJob < TrackJob
 
   def payload
     {
-      track_id: tracking_info.details[:details][:tracking_number_unique_identifier],
+      track_id: tracking_info.details[:tracking_number_unique_identifier],
       status: status_normalization,
-      description: tracking_info.details[:details][:status_description],
-      status_code: tracking_info.details[:details][:status_code],
-      carrier_code: tracking_info.details[:details][:carrier_code],
-      packaging_type: tracking_info.details[:details][:packaging_type],
-      dimensions: tracking_info.details[:details][:package_dimensions]
+      description: tracking_info.details[:status_description],
+      status_code: tracking_info.details[:status_code],
+      carrier_code: tracking_info.details[:carrier_code],
+      packaging_type: tracking_info.details[:packaging_type],
+      dimensions: tracking_info.details[:package_dimensions]
     }
   end
 end
