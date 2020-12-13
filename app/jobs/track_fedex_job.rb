@@ -1,4 +1,5 @@
 class TrackFedexJob < TrackJob
+  retry_on Timeout::Error, wait: 30.seconds, attempts: 3
   def perform(*args)
     super(*args)
 
