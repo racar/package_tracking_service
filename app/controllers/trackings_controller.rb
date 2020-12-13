@@ -2,9 +2,14 @@ class TrackingsController < ApplicationController
   def update
     package = FedexService.find_by(tracking_number: tracking_id)
     if package
-      TrackFedexJob.perform_now(package)
+      binding.pry
+      begin
+        TrackFedexJob.perform_now(package)
+      rescue StandardError => e
+        render_unprocessable("Carrier searching error: #{e.message}")
+      end
     else
-      render_unprocessable
+      render_unprocessable("Tracking number #{tracking_id} not found.")
     end
   end
 
@@ -14,7 +19,7 @@ class TrackingsController < ApplicationController
     params[:tracking_id]
   end
 
-  def render_unprocessable
-    render json: "Tracking number #{ tracking_id } not found.", status: :unprocessable_entity
+  def render_unprocessable(msg)
+    render json: msg, status: :unprocessable_entity
   end
 end
