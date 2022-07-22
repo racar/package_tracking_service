@@ -42,13 +42,17 @@ class TrackFedexJob < TrackJob
 
   def payload
     {
-      track_id: tracking_info.details[:tracking_number_unique_identifier],
-      status: status_normalization,
-      description: tracking_info.details[:status_description],
-      status_code: tracking_info.details[:status_code],
-      carrier_code: tracking_info.details[:carrier_code],
-      packaging_type: tracking_info.details[:packaging_type],
-      dimensions: tracking_info.details[:package_dimensions]
+    track_id: tracking_info.details[:tracking_number_unique_identifier],
+    status: status_demo_helper, #status_normalization,
+    description: tracking_info.details[:status_description],
+    status_code: tracking_info.details[:status_code],
+    carrier_code: tracking_info.details[:carrier_code],
+    packaging_type: tracking_info.details[:packaging_type],
+    dimensions: tracking_info.details[:package_dimensions]
     }
+  end
+
+  def status_demo_helper
+    ['DISTRIBUTION_CENTER', 'TRANSPORT_CENTER', 'ON_TRANSIT', 'AIRLINE_OUTPUT', 'ON_DISTRIBUTION'].sample
   end
 end

@@ -18,7 +18,7 @@ class Publisher
   end
 
   def queue
-    @queue ||= channel.queue(queue_name)
+    @queue ||= channel.queue(queue_name, :durable => true)
   end
 
   def exchange
